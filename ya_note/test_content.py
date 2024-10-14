@@ -48,7 +48,7 @@ class TestHomePage(TestCase):
         # Проверяем, что заметки другого пользователя отсутствуют
         self.assertFalse(any(note.title == 'Заметка другого пользователя' for
                              note in object_list))
-        
+
     def test_create_note_form(self):
         self.client.force_login(self.user)
         response = self.client.get(reverse('notes:add'))
@@ -59,6 +59,3 @@ class TestHomePage(TestCase):
         self.client.force_login(self.user)
         response = self.client.get(reverse('notes:edit', args=[note.slug]))
         self.assertIn('form', response.context)
-
-
-
