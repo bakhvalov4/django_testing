@@ -36,7 +36,7 @@ def test_pages_availability_for_auth_user(not_author_client, name, comment):
     'name',
     ('news:edit', 'news:delete'),
 )
-def test_pages_availability_for_author(parametrized_client, name, 
+def test_pages_availability_for_author(parametrized_client, name,
                                        comment, expected_status):
     url = reverse(name, args=(comment.id,))
     response = parametrized_client.get(url)
