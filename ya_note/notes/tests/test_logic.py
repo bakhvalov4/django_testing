@@ -75,14 +75,14 @@ class TestNoteDelEdit(TestCase):
     def test_author_can_delete_note(self):
         response = self.author_client.post(self.delete_url)
         self.assertRedirects(response, self.url)
-        notes_count = Note.objects.count()
-        self.assertEqual(notes_count, 0)
+        notes_count = Note.objects.exists()
+        self.assertFalse(notes_count)
 
     def test_reader_cant_delete_note(self):
         response = self.reader_client.delete(self.delete_url)
         self.assertEqual(response.status_code, HTTPStatus.NOT_FOUND)
-        notes_count = Note.objects.count()
-        self.assertEqual(notes_count, 1)
+        notes_count = Note.objects.exists()
+        self.assertTrue(notes_count)
 
     def test_author_can_edit_note(self):
         response = self.author_client.post(self.edit_url, data=self.form_data)
